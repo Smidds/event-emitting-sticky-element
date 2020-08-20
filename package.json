@@ -1,5 +1,5 @@
 {
-  "name": "sticky-header-demo",
+  "name": "event-emitting-sticky-element",
   "version": "0.1.0",
   "private": true,
   "scripts": {
