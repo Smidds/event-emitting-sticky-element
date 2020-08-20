@@ -1,6 +1,7 @@
 <template>
   <fragment>
     <div class="sub-nav-top">
+      <sentinel :top-offset="topOffset" :debug="false" v-on="$listeners"/>
       <div class="left">
         <slot name="left"/>
       </div>
@@ -16,26 +17,34 @@
 </template>
 
 <script>
+import Sentinel from "./sentinel";
 import { Fragment } from "vue-fragment";
 
 export default {
   name: "SubNavDropStatic",
   components: {
-    Fragment
+    Fragment,
+    Sentinel
   },
   props: {
     showRight: { type: Boolean, default: true },
-    showDropdown: { type: Boolean, default: false }
+    showDropdown: { type: Boolean, default: false },
+    topOffset: { type: Number, required: true }
   },
   computed: {
     dropdownClasses() {
       return ["dropdown", this.showDropdown ? "show-dropdown" : ""];
     }
+  },
+  methods: {
+    isStuck(stuck) {
+      console.log("Stuck status: ", stuck);
+    }
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../assets/styles/mixins.scss";
 .sub-nav {
   &-inner {
@@ -50,7 +59,7 @@ export default {
     position: -webkit-sticky;
     position: sticky;
     top: 61px;
-    background-color: #29a329;
+    background-color: #5dc05d;
     width: 100%;
   }
 }
@@ -64,7 +73,6 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
-
 .dropdown {
   width: 100%;
   transition: height 300ms cubic-bezier(0.5, 0, 1, 1);

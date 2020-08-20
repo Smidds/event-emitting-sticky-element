@@ -1,5 +1,6 @@
 <template>
   <div class="sub-nav">
+    <sentinel :top-offset="topOffset" :debug="false" v-on="$listeners"/>
     <div class="sub-nav-inner">
       <div class="sub-nav-top">
         <div class="left">
@@ -18,11 +19,17 @@
 </template>
 
 <script>
+import Sentinel from "./sentinel";
+
 export default {
   name: "SubNavDropAttached",
+  components: {
+    Sentinel
+  },
   props: {
     showRight: { type: Boolean, default: true },
-    showDropdown: { type: Boolean, default: false }
+    showDropdown: { type: Boolean, default: false },
+    topOffset: { type: Number, required: true }
   },
   computed: {
     dropdownClasses() {
@@ -32,7 +39,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../assets/styles/mixins.scss";
 .sub-nav {
   background-color: #44bcd8;
