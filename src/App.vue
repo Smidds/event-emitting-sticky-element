@@ -2,13 +2,18 @@
   <div id="app">
     <Masthead v-model="selectedSubNav" :options="subNavOptions"/>
     <Header/>
-    <component :is="selectedSubNav" :show-right="showRight" :show-dropdown="showDropdown">
+    <component
+      :is="selectedSubNav"
+      :show-right="showRight"
+      :show-dropdown="showDropdown"
+      :top-offset="62"
+      @is-stuck="isStuck"
+    >
       <template v-slot:left>
-        <button class="cool-button" @click="toggleRight">Hide right side</button>
+        <button class="cool-button" @click="toggleRight" v-if="!isSubNavStuck">Hide right side</button>
         <button class="cool-button" @click="showAlert">Show cool alert</button>
-        Type: {{selectedSubNav}}
       </template>
-      <template v-slot:right>
+      <template v-slot:right v-if="!isSubNavStuck">
         <button class="cool-button" @click="toggleDropdown">Show dropdown</button>
       </template>
       <template v-slot:dropdown>
@@ -40,7 +45,8 @@ export default {
       showRight: true,
       showDropdown: false,
       subNavOptions,
-      selectedSubNav: subNavOptions[0]
+      selectedSubNav: subNavOptions[0],
+      isSubNavStuck: false
     };
   },
   methods: {
@@ -52,6 +58,9 @@ export default {
     },
     showAlert() {
       window.alert("Wow! So cool!");
+    },
+    isStuck(stuckStatus) {
+      this.isSubNavStuck = stuckStatus;
     }
   }
 };
