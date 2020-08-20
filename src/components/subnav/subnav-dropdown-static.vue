@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <div class="sub-nav-top">
+    <div class="sub-nav-top" :style="{ top: `${topOffset}px`}">
       <sentinel :top-offset="topOffset" :debug="false" v-on="$listeners"/>
       <div class="left">
         <slot name="left"/>
@@ -58,7 +58,6 @@ export default {
     z-index: 100;
     position: -webkit-sticky;
     position: sticky;
-    top: 61px;
     background-color: #5dc05d;
     width: 100%;
   }

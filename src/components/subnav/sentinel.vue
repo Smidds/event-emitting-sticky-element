@@ -16,7 +16,7 @@ export default {
   computed: {
     style() {
       return {
-        top: `${-this.topOffset}px`,
+        top: `${-this.topOffset - 1}px`,
         visibility: this.debug ? "show" : "hidden"
       };
     }

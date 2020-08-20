@@ -6,7 +6,7 @@
       :is="selectedSubNav"
       :show-right="showRight"
       :show-dropdown="showDropdown"
-      :top-offset="62"
+      :top-offset="70"
       @is-stuck="isStuck"
     >
       <template v-slot:left>

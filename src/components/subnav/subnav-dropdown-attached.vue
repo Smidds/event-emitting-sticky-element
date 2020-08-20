@@ -1,5 +1,5 @@
 <template>
-  <div class="sub-nav">
+  <div class="sub-nav" :style="{ top: `${topOffset}px`}">
     <sentinel :top-offset="topOffset" :debug="false" v-on="$listeners"/>
     <div class="sub-nav-inner">
       <div class="sub-nav-top">
@@ -47,7 +47,6 @@ export default {
   width: 100%;
   position: -webkit-sticky;
   position: sticky;
-  top: 61px;
 
   &-inner {
     width: 100%;
