@@ -1,19 +1,25 @@
 <template>
   <div id="app">
-    <Masthead/>
+    <Masthead v-model="selectedSubNav" :options="subNavOptions"/>
     <Header/>
-    <SubNav :show-right="showRight" :show-dropdown="showDropdown">
+    <component
+      :is="selectedSubNav"
+      :show-right="showRight"
+      :show-dropdown="showDropdown"
+      :top-offset="62"
+      @is-stuck="isStuck"
+    >
       <template v-slot:left>
-        <button class="cool-button" @click="toggleRight">Hide right side</button>
+        <button class="cool-button" @click="toggleRight" v-if="!isSubNavStuck">Hide right side</button>
         <button class="cool-button" @click="showAlert">Show cool alert</button>
       </template>
-      <template v-slot:right>
+      <template v-slot:right v-if="!isSubNavStuck">
         <button class="cool-button" @click="toggleDropdown">Show dropdown</button>
       </template>
       <template v-slot:dropdown>
         <h1>Dropdown!</h1>
       </template>
-    </SubNav>
+    </component>
     <Filler/>
   </div>
 </template>
@@ -22,20 +28,25 @@
 import Filler from "./components/filler";
 import Masthead from "./components/masthead";
 import Header from "./components/header";
-import SubNav from "./components/subnav";
+import SubNavComponents, {
+  options as subNavOptions
+} from "./components/subnav";
 
 export default {
   name: "App",
   components: {
     Masthead,
     Header,
-    SubNav,
-    Filler
+    Filler,
+    ...SubNavComponents
   },
   data() {
     return {
       showRight: true,
-      showDropdown: false
+      showDropdown: false,
+      subNavOptions,
+      selectedSubNav: subNavOptions[0],
+      isSubNavStuck: false
     };
   },
   methods: {
@@ -47,6 +58,9 @@ export default {
     },
     showAlert() {
       window.alert("Wow! So cool!");
+    },
+    isStuck(stuckStatus) {
+      this.isSubNavStuck = stuckStatus;
     }
   }
 };
